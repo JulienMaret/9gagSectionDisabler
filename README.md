@@ -1,5 +1,6 @@
 # 9gagSectionDisabler
 Few javascript code to be able to disable some 9 gag section
+be safe from spoil an undesired content
 
 
 If you dont have browser extension 
