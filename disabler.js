@@ -1,12 +1,36 @@
+if (localStorage.getItem("disab_list") === null)
+   var disab_list = [];
+else
+   var disab_list = JSON.parse(localStorage.getItem("disab_list"));
 var needcheckbox = (document.getElementsByClassName("Checkbox_disabler").length == 0);
+
+function disablerClicked(checkbox) {
+    if (!checkbox.checked)
+        disab_list.push(checkbox.parentElement.getElementsByClassName("label")[0].innerText);
+    else
+        disab_list.splice(disab_list.indexOf(checkbox.parentElement.getElementsByClassName("label")[0].innerText), 1);
+    localStorage.setItem("disab_list", JSON.stringify(disab_list));
+}
+
 function add_checkboxes() {
 	var needcheckbox = false;
-	var list = document.getElementsByClassName("nav")[1].getElementsByTagName("li");
+	var list = document.getElementsByClassName("nav")[2].getElementsByTagName("li");
 	for(var i =0; i < list.length; i++) {
 		var checkbox = document.createElement('input');
 		checkbox.type = "checkbox";
 		checkbox.className = "Checkbox_disabler";
-		checkbox.checked = true;
+                checkbox.setAttribute("onchange", "disablerClicked(this)");
+ 		checkbox.checked = !disab_list.includes(list[i].getElementsByClassName("label")[0].innerText);
+                
+		list[i].appendChild(checkbox);
+	}
+        var list = document.getElementsByClassName("nav")[3].getElementsByTagName("li");
+	for(var i =0; i < list.length; i++) {
+		var checkbox = document.createElement('input');
+		checkbox.type = "checkbox";
+		checkbox.className = "Checkbox_disabler";
+                checkbox.setAttribute("onchange", "disablerClicked(this)");
+		checkbox.checked = !disab_list.includes(list[i].getElementsByClassName("label")[0].innerText);
 		list[i].appendChild(checkbox);
 	}
 }
@@ -16,7 +40,7 @@ function disableSpoiler() {
 	var to_disable=[];
 	for (var i = 0; i < disabled.length; i++)
 		if(!disabled[i].checked)
-			to_disable.push(disabled[i].parentElement.getElementsByClassName("label")[0].innerText.concat(" "));
+			to_disable.push(disabled[i].parentElement.getElementsByClassName("label")[0].innerText);
 	var x = document.getElementsByClassName("section");
 	for (var i = 0; i < x.length; i++)
 		if(to_disable.includes(x[i].innerText))
@@ -25,4 +49,3 @@ function disableSpoiler() {
 if (needcheckbox) add_checkboxes();
 disableSpoiler();
 document.addEventListener("scroll", disableSpoiler);
-
