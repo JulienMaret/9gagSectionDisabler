@@ -16,4 +16,3 @@ If you have a browser extension to execute js and css
 
 Add the code for the 9gag.com domain and you sould good even with reload just have to check aigain
 
-(I unable to let the button checked after reload for the moment)
