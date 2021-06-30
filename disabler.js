@@ -14,7 +14,7 @@ function disablerClicked(checkbox) {
 
 function add_checkboxes() {
 	var needcheckbox = false;
-	var list = document.getElementsByClassName("nav")[2].getElementsByTagName("li");
+	var list = document.getElementsByClassName("drawer-container")[0].getElementsByTagName("section")[1].getElementsByTagName("li");
 	for(var i =0; i < list.length; i++) {
 		var checkbox = document.createElement('input');
 		checkbox.type = "checkbox";
@@ -24,7 +24,7 @@ function add_checkboxes() {
                 
 		list[i].appendChild(checkbox);
 	}
-        var list = document.getElementsByClassName("nav")[3].getElementsByTagName("li");
+        var list = document.getElementsByClassName("drawer-container")[0].getElementsByTagName("section")[2].getElementsByTagName("li");
 	for(var i =0; i < list.length; i++) {
 		var checkbox = document.createElement('input');
 		checkbox.type = "checkbox";
@@ -46,6 +46,16 @@ function disableSpoiler() {
 		if(to_disable.includes(x[i].innerText))
 			x[i].parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.style.display="none";
 }
+
+function enableControls() {
+  for (video of document.getElementsByTagName("video"))
+    if (!video.hasAttribute("controls"))
+      video.setAttribute("controls","controls");  
+}
+
 if (needcheckbox) add_checkboxes();
 disableSpoiler();
 document.addEventListener("scroll", disableSpoiler);
+document.addEventListener("scroll", enableControls);
+
+document.querySelector("#jsid-app > div > div.cp-background").remove();
